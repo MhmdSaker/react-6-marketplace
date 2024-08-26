@@ -1,0 +1,123 @@
+ .heading {
+    margin: 50px;
+
+ }
+ 
+ .products {
+    display: grid;
+    margin: 50px;
+    
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.product-container {
+    position: relative;
+    border: solid 1px #1f2323;
+    padding: 20px;
+    width: 400px;
+    border-radius: 5px;
+
+}
+
+.product-container img {
+    width: 200px;
+    height: 200px; /* Set a fixed height */
+    object-fit: cover; /* Ensures the image covers the area, maintaining aspect ratio */
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+
+}
+
+.product-container .desc {
+    color: #787878;
+    flex-grow: 1; /* Allows the description to grow and fill space, keeping the layout balanced */
+
+}
+
+.product-container .price {
+    font-weight: 500;
+    font-size: large;
+    background-color: #111111;
+    color: #fff;
+    margin: 0;
+    height: 100%;
+    width: 240px;
+    font-size: x-large;
+    display: flex;
+    align-items: center;
+    justify-content: left; 
+    padding-left: 20px;
+    border-radius: 5px;
+    
+}
+
+
+
+.product-container span {
+    background-color: #111111;
+    display: block;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Rubik;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: background-color 500ms cubic-bezier(0.47, 0, 0.745, 0.715), font-weight 200ms cubic-bezier(0.47, 0, 0.745, 0.715), scale 100ms cubic-bezier(0.47, 0, 0.745, 0.715);
+    padding: 5px 15px;
+    width: fit-content;
+}
+
+.product-container .pr-foot {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin: 30px 0px;
+
+
+}
+
+
+
+.product-container .pr-left span {
+    color: #111;
+    background-color: #fff;
+    border: 1px solid #111111;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.product-container .pr-left span:nth-child(1):hover {
+    background-color: lemonchiffon;
+
+}
+
+.product-container .pr-left span:nth-child(2):hover {
+    background-color: rgb(212, 255, 205);
+
+}
+
+
+.product-container button {
+    text-decoration: none;
+    font-family: Rubik;
+    font-weight: 500;
+    transition: all 200ms cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    cursor: pointer;
+    padding: 5px 30px;
+    width: 100%;
+    background-color: #ffff;
+    font-size: large;
+    margin-top: 20px;
+}
+    
+
+
+.product-container button:hover {
+    border: 2px solid #f12323;
+    color: #f12323;
+    scale: 0.99;
+}
+
+
