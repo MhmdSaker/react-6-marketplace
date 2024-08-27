@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Product from "./components/Product";
+import NavBar from "./components/Navbar";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,8 @@ function App() {
 
   return (
     <>
-      <h1 className="heading">Our Products</h1>
+
+      <NavBar />
       <div className="products">
         {products.map((product) => {
           return(

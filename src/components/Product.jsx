@@ -14,7 +14,7 @@ const Product = (props) => {
       <span>{product.category}</span>
       <img src={product.image} alt={product.title} />
       <h2>{truncateDesc(product.title, 20)}</h2>
-      <p className="desc">{truncateDesc(product.description, 100)}</p>
+      <p className="desc">{truncateDesc(product.description, 80)}</p>
 
       <div className="pr-foot">
         <div className="pr-right">
@@ -26,8 +26,7 @@ const Product = (props) => {
           <span>Count: {product.rating.count}</span>
         </div>
       </div>
-      <hr />
-      <button>Add to Cart</button>
+      <button>Details</button>
     </div>
   );
 };
