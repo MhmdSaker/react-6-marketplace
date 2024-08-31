@@ -103,7 +103,7 @@
 }
 
 
-.product-container button {
+.product-container .link {
     text-decoration: none;
     font-family: Rubik;
     font-weight: 500;
@@ -118,12 +118,12 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     border-radius: 5px;
+    color: #111;
 }
     
 
 
-.product-container button:hover {
-    border: 2px solid #f12323;
+.product-container .link:hover {
     color: #f12323;
     scale: 0.99;
 }
@@ -174,3 +174,13 @@
 .singProdContainer {
     margin: 40px;
 }
+
+
+.category-filter select {
+    font-family: Inter;
+    margin: 40px 160px;
+    height: 30px;
+    border-radius: 5px;
+    border: solid 1px #111
+}
+

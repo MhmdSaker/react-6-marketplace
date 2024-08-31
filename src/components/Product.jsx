@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Product = ({ productId, button }) => {
   const [product, setProduct] = useState(null);
@@ -38,7 +39,7 @@ const Product = ({ productId, button }) => {
           <span>Count: {product.rating.count}</span>
         </div>
       </div>
-      {button && <button>Details</button>}
+      {button && <Link className="link" to={`/products/${productId}`}>Details</Link>}
     </div>
   );
 };
