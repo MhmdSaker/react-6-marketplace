@@ -1,13 +1,25 @@
-const Product = (props) => {
+import { useEffect, useState } from "react";
 
-  const { product } = props;
+const Product = ({ productId, button }) => {
+  const [product, setProduct] = useState(null);
 
-  const truncateDesc = (desc, maxLength) => {
-    if (desc.length > maxLength) {
-      return desc.substring(0, maxLength) + "...";
-    }
-    return desc;
-  };
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(
+          `https://fakestoreapi.com/products/${productId}`
+        );
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error("Failed to fetch product:", error);
+      }
+    };
+
+    fetchProduct();
+  }, [productId]);
+
+  if (!product) return <div>Loading...</div>;
 
   return (
     <div className="product-container">
@@ -26,9 +38,16 @@ const Product = (props) => {
           <span>Count: {product.rating.count}</span>
         </div>
       </div>
-      <button>Details</button>
+      {button && <button>Details</button>}
     </div>
   );
+};
+
+const truncateDesc = (desc, maxLength) => {
+  if (desc.length > maxLength) {
+    return desc.substring(0, maxLength) + "...";
+  }
+  return desc;
 };
 
 export default Product;

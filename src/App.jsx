@@ -1,30 +1,27 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Product from "./components/Product";
 import NavBar from "./components/Navbar";
+import {Routes, Route} from 'react-router-dom'
+import About from "./components/About";
+import ProductList from "./components/ProductList";
+import Product from "./components/Product";
+import SingProd from "./components/SingProd";
+
+
+
+
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const apiUrl = "https://fakestoreapi.com/products";
-
-  useEffect(() => {
-    fetch(apiUrl)
-    .then((res) => (res.json())
-    .then((product) => setProducts(product))
-    );
-  }, []);
-
   return (
     <>
-
       <NavBar />
-      <div className="products">
-        {products.map((product) => {
-          return(
-            <Product key={product.id} product={product} />
-          )
-                })}
-      </div>
+
+      <Routes>
+        <Route path="/" element={<ProductList />} />
+        <Route path="/products" element={<ProductList />} />
+        <Route path="/about-us" element={<About />} />
+        <Route path="/products/:id" element={<SingProd />} />
+      </Routes>
     </>
   );
 }

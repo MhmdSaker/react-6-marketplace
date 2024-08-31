@@ -153,13 +153,24 @@
     margin-left: 10px;
 }
 
-.navContainer ul li {
+.navContainer ul .link {
+    text-decoration: none;
+    color: #fff;
     margin-left: 30px;
     font-size: 1.2em;
     cursor: pointer;
     transition: color 200ms ease-in-out;
 }
 
-.navContainer ul li:hover {
+.navContainer ul .link:hover {
     color: #f12323; 
+}
+
+
+.aboutContainer {
+    margin: 60px;
+}
+
+.singProdContainer {
+    margin: 40px;
 }
