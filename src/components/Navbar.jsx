@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import About from "./About";
+import ProductTable from "./ProductTable";
 
 const NavBar = () => {
 
@@ -10,6 +11,7 @@ const NavBar = () => {
         <h1 className="heading">Clother.</h1>
         <ul>
           <Link className="link" to="/">Our Products</Link>
+          <Link className="link" to="/products-table">Table</Link>
           <Link className="link" to="/about-us">About Us</Link>
         </ul>
       </div>

@@ -6,7 +6,7 @@ const ProductList = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const apiUrl = `https://fakestoreapi.com/products`;
+  const apiUrl = `http://localhost:9000/products`;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,6 +41,10 @@ const ProductList = () => {
     ? products
     : products.filter(product => product.category === selectedCategory);
 
+  const prices = products.map(product => product.price)
+  const maxPrice = Math.max(...prices)
+  const minPrice = Math.min(...prices)
+
   return (
     <div>
       <div className="category-filter">
@@ -53,6 +57,13 @@ const ProductList = () => {
           ))}
         </select>
       </div>
+
+      {/* <div className="price-filter">
+        <label htmlFor="vol"> Prices between {maxPrice} and {minPrice}</label>
+        <br />
+        <input type="range" name="vol" min={minPrice} max={maxPrice}></input>
+
+      </div> */}
 
       <div className="products">
         {filteredProducts.map((product) => (

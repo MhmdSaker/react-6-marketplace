@@ -8,7 +8,7 @@ const Product = ({ productId, button }) => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `https://fakestoreapi.com/products/${productId}`
+          `http://localhost:9000/products/${productId}`
         );
         const data = await response.json();
         setProduct(data);
@@ -20,7 +20,7 @@ const Product = ({ productId, button }) => {
     fetchProduct();
   }, [productId]);
 
-  if (!product) return <div>Loading...</div>;
+  if (!product) return <div>...</div>;
 
   return (
     <div className="product-container">
