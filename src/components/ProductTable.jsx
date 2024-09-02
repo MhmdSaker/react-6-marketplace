@@ -21,22 +21,27 @@ const notify = () =>
     },
   });
 
+  
+
 const ProductTable = () => {
   const [ProductMock, setProductsMock] = useState([]);
 
-  useEffect(() => {
-    const fetchProductsMock = async () => {
-      try {
-        const response = await fetch(`http://localhost:9000/products`);
-        const data = await response.json();
-        setProductsMock(data);
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      }
-    };
 
+  const fetchProductsMock = async () => {
+    try {
+      const response = await fetch(`http://localhost:9000/products`);
+      const data = await response.json();
+      setProductsMock(data);
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    }
+  }
+
+  useEffect(() => {
     fetchProductsMock();
   }, []);
+
+  
 
   const deleteProduct = (product) => {
     fetch(`http://localhost:9000/products/${product.id}`, {
@@ -44,20 +49,18 @@ const ProductTable = () => {
     })
       .then((res) => {
         if (res.ok) {
-          return fetch(`http://localhost:9000/products`);
+          return fetchProductsMock();
         } else {
           throw new Error("failed to delete product");
         }
       })
-      .then((updatedResponse) => updatedResponse.json())
-      .then((updatedData) => {
-        setProductsMock(updatedData);
+      .then(() => {
         notify();
       });
   };
 
   return (
-    <>
+    <div className="table-container">
       <table>
         <thead>
           <tr>
@@ -78,7 +81,7 @@ const ProductTable = () => {
                   <Link className="button" to={`/products/${product.id}`}>
                     View
                   </Link>
-                  <button className="button">Edit</button>
+                  <Link to={`/products/edit/${product.id}`} className="button">Edit</Link>
                   <button
                     onClick={() => deleteProduct(product)}
                     className="button"
@@ -92,7 +95,7 @@ const ProductTable = () => {
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
