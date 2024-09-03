@@ -1,11 +1,12 @@
 import "../styles/newproduct.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 
 const NewProduct = () => {
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  
+  const [price, setPrice] = useState();
   const [nextId, setNextId] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Fetch existing products to determine the next ID
@@ -22,6 +23,7 @@ const NewProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addProduct();
+    navigate('/products-table')
   };
 
 
@@ -30,9 +32,9 @@ const NewProduct = () => {
     fetch(`http://localhost:9000/products`, {
       method: "POST",
       body: JSON.stringify({
-        id: nextId,  // Manually set the next ID
+        id: String(nextId),  
         title,
-        price,
+        price: Number(price)
       }),
       headers: {
         "Content-Type": "application/json",
@@ -59,9 +61,9 @@ const NewProduct = () => {
           <label>Price</label>
           <input
             value={price}
-            type="number"
+            type="text"
             name="price"
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(Number(e.target.value))}
           />
         </div>
 

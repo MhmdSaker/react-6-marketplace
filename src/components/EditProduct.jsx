@@ -1,44 +1,60 @@
-import '../styles/newproduct.css'
+import '../styles/newproduct.css';
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EditProduct = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`http://localhost:9000/products/${id}`);
+        if (!response.ok) {
+          throw new Error('Product not found');
+        }
+        const data = await response.json();
+        setTitle(data.title);
+        setPrice(data.price);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
 
   const saveProduct = (e) => {
     e.preventDefault();
 
     fetch(`http://localhost:9000/products/${id}`, {
-      method: "PUT", // Use PUT or PATCH to update the existing product
-      body: JSON.stringify({
-        title,
-        price,
-      }),
+      method: "PATCH", // Use PUT or PATCH to update the existing product
+      body: JSON.stringify({ title, price }),
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
-      .then((data) => console.log("Product updated:", data))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Failed to update product');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Product updated:", data);
+        navigate(`/products/${id}`); // Redirect to the product details page after saving
+      })
       .catch((error) => console.error("Failed to update product:", error));
   };
 
-
-
-
-
-  
-
-  useEffect(() => {
-    fetch(`http://localhost:9000/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setTitle(data.title)
-        setPrice(data.price)
-      });
-  }, [id]);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <>
@@ -61,7 +77,6 @@ const EditProduct = () => {
               type="number"
               name="price"
               onChange={(e) => setPrice(e.target.value)}
-              
             />
           </div>
 
