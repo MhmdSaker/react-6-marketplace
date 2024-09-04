@@ -1,14 +1,22 @@
 import { Link } from "react-router-dom";
 import React, { useContext } from "react";
 import { ThemeContext } from "./ThemeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faTable,
+  faInfoCircle,
+  faPlus,
+  faToggleOn,
+  faToggleOff,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-
   const linkStyle = {
-    color: theme === 'light' ? '#000' : '#fff',
-    textDecoration: 'none',
+    color: theme === "light" ? "#000" : "#fff",
+    textDecoration: "none",
   };
 
   return (
@@ -23,30 +31,28 @@ const NavBar = () => {
         <h1 className="heading">Clother.</h1>
         <ul>
           <Link style={linkStyle} className="link" to="/">
-            Our Products
+            <FontAwesomeIcon icon={faHome} />
           </Link>
           <Link style={linkStyle} className="link" to="/products-table">
-            Table
+            <FontAwesomeIcon icon={faTable} />
           </Link>
           <Link style={linkStyle} className="link" to="/about-us">
-            About Us
+            <FontAwesomeIcon icon={faInfoCircle} />
           </Link>
           <Link style={linkStyle} className="link" to="/products/add">
-            Add Product
+            <FontAwesomeIcon icon={faPlus} />
           </Link>
           <button
             onClick={toggleTheme}
             className={`link`}
             style={{
-              color: theme === 'light' ? '#111' : '#fff',
+              color: theme === "light" ? "#111" : "#fff",
               boxShadow: "none",
               backgroundColor: "transparent",
               border: "none",
-        
-              
             }}
           >
-            Toggle
+            {theme === 'light' ? <FontAwesomeIcon icon={faToggleOn}/> : <FontAwesomeIcon icon={faToggleOff}/>}
           </button>
         </ul>
       </div>
