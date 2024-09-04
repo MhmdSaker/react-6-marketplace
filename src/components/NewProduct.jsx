@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom'
 
 const NewProduct = () => {
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState(0);
   const [nextId, setNextId] = useState(null);
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Fetch existing products to determine the next ID
+    // Fixing New IDs being random hashed
     fetch(`http://localhost:9000/products`)
       .then((res) => res.json())
       .then((data) => {
@@ -22,7 +22,11 @@ const NewProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addProduct();
+    if(!title || !price) {
+      return 0;
+    }else {
+      addProduct();
+    }
     navigate('/products-table')
   };
 
@@ -31,14 +35,14 @@ const NewProduct = () => {
   const addProduct = () => {
     fetch(`http://localhost:9000/products`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         id: String(nextId),  
         title,
         price: Number(price)
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      })
     })
       .then((res) => res.json())
       .then((data) => console.log(data));

@@ -10,25 +10,29 @@ const EditProduct = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch(`http://localhost:9000/products/${id}`);
-        if (!response.ok) {
-          throw new Error('Product not found');
-        }
-        const data = await response.json();
-        setTitle(data.title);
-        setPrice(data.price);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+  const fetchProduct = async () => {
+    try {
+      const response = await fetch(`http://localhost:9000/products/${id}`);
+      if (!response.ok) {
+        throw new Error('Product not found');
       }
-    };
+      const data = await response.json();
+      setTitle(data.title);
+      setPrice(data.price);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+
+
+  useEffect(() => {
     fetchProduct();
   }, [id]);
+
+
 
   const saveProduct = (e) => {
     e.preventDefault();
@@ -53,8 +57,13 @@ const EditProduct = () => {
       .catch((error) => console.error("Failed to update product:", error));
   };
 
+
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+
+
+
 
   return (
     <>

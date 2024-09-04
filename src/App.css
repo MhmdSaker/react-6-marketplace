@@ -137,7 +137,6 @@
     color: #fff; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
     border-radius: 10px;
-
 }
 
 .heading {
@@ -145,8 +144,6 @@
     font-size: 1.5em;
     font-weight: bold;
     transition: all 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
-    
 }
 
 .heading:hover {
@@ -163,7 +160,7 @@
 
 .navContainer ul .link {
     text-decoration: none;
-    color: #fff;
+    color: #111;
     margin-left: 30px;
     font-size: 1.2em;
     cursor: pointer;
@@ -171,15 +168,30 @@
     padding: 5px;
 }
 
-.navContainer ul .link:hover {
+.navContainer ul .link.light:hover {
     color: #f12323; 
 }
 
+.navContainer ul .link.dark:hover {
+    color: #23f14c; 
+}
 
 .navContainer ul .link:nth-child(4):hover {
     color: #23f14c;
-
 }
+
+.link:hover {
+    color: #f12323;
+  }
+
+
+
+
+  
+.btn-toggle {
+    box-shadow: none;
+}
+
 
 .aboutContainer {
     margin: 60px;
