@@ -147,7 +147,7 @@
 }
 
 .heading:hover {
-    color: #00ecad;
+    color: #c70e0e;
 }
 
 .navContainer ul {
@@ -201,10 +201,31 @@
     margin: 40px;
 }
 
+.search-filter {
+    margin: 30px;
+}
+
+.search {
+    margin-bottom: 20px;
+}
+
+.search input {
+    height: 40px;
+    padding: 10px 15px;
+    font-size: 20px;
+    width: 400px;
+    border-radius: 3px;
+    border: 1px solid  #111111;
+}
+
+
+
+.search input::placeholder {
+    opacity: 0.4;
+}
 
 .category-filter select {
     font-family: Inter;
-    margin: 40px 160px;
     height: 30px;
     border-radius: 5px;
     border: solid 1px #111

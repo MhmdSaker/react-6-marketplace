@@ -4,7 +4,6 @@ import NavBar from "./components/Navbar";
 import { Routes, Route, Link } from "react-router-dom";
 import About from "./components/About";
 import ProductList from "./components/ProductList";
-import Product from "./components/Product";
 import SingProd from "./components/SingProd";
 import ProductTable from "./components/ProductTable";
 import NewProduct from "./components/NewProduct";
@@ -28,6 +27,7 @@ function App() {
           <Route path="/about-us" element={<About />} />
         </Routes>
       </ThemeProvider>
+
     </>
   );
 }
