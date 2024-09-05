@@ -4,7 +4,11 @@ import Product from "./Product";
 const SingProd = () => {
   const { id } = useParams();
 
-  return <Product productId={id} button={false} />;
+  return (
+    <div style={{margin: "30px", display: "flex", justifyContent: "center"}}>
+      <Product productId={id} button={false} />
+    </div>
+  );
 };
 
 export default SingProd;
