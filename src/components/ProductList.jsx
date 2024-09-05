@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Product from "./Product";
-import Modal from "./Modal"; // Import the Modal component
+import Modal from "./Modal"; 
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -9,6 +9,8 @@ const ProductList = () => {
   const [input, setInput] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null); // Track selected product for the modal
   const [isModalOpen, setIsModalOpen] = useState(false); // Track modal open/close state
+  const [min, setMin] = useState("");
+  const [max, setMax] = useState("");
 
   const apiUrl = `http://localhost:9000/products`;
 
@@ -37,27 +39,11 @@ const ProductList = () => {
   useEffect(() => {
     fetchProducts();
     fetchCategories();
-  }, [input]);
-
-  const inputInLower = input.toLowerCase();
-  const SearchedProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(inputInLower)
-  );
+  }, []); // Fetch only on component mount
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
-
-  const filteredProducts =
-    selectedCategory === "all"
-      ? products
-      : products.filter((product) => product.category === selectedCategory);
-
-  const prices = products.map((product) => product.price);
-  const maxPrice = Math.max(...prices);
-  const minPrice = Math.min(...prices);
-
-
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
@@ -68,6 +54,23 @@ const ProductList = () => {
     setIsModalOpen(false);
   };
 
+  const applyPriceFilter = (product) => {
+    if (min && max) {
+      return product.price >= min && product.price <= max;
+    }
+    return true;
+  };
+
+  // Combined filtering logic for search term, category, and price
+  const filteredProducts = products
+    .filter((product) =>
+      selectedCategory === "all" ? true : product.category === selectedCategory
+    )
+    .filter((product) =>
+      product.title.toLowerCase().includes(input.toLowerCase())
+    )
+    .filter(applyPriceFilter);
+
   return (
     <div>
       <div className="search-filter">
@@ -75,23 +78,41 @@ const ProductList = () => {
           <input
             type="search"
             name="search"
-            id="search"
             placeholder="Search"
             onChange={(e) => setInput(e.target.value)}
           />
         </div>
-        <div className="category-filter">
-          <select
-            onChange={(e) => handleCategoryChange(e.target.value)}
-            value={selectedCategory}
-          >
-            <option value="all">All</option>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+        <div className="filters">
+          <div className="category-filter">
+            <select
+              onChange={(e) => handleCategoryChange(e.target.value)}
+              value={selectedCategory}
+            >
+              <option value="all">All</option>
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="price-filter">
+            <input
+              type="number"
+              value={min}
+              onChange={(e) => setMin(e.target.value)}
+              name="minPrice"
+              placeholder="Min"
+            />
+            <input
+              type="number"
+              value={max}
+              onChange={(e) => setMax(e.target.value)}
+              name="maxPrice"
+              placeholder="Max"
+            />
+          </div>
         </div>
       </div>
 
@@ -100,19 +121,17 @@ const ProductList = () => {
           <div key={product.id} onClick={() => handleProductClick(product)}>
             <Product productId={product.id} button={true} />
           </div>
-        )) && SearchedProducts.map((product) => (
-          <div key={product.id} onClick={() => handleProductClick(product)}>
-            <Product product={product} productId={product.id} button={true} />
-          </div>
         ))}
       </div>
 
       {/* Modal for Product Details */}
-      <Modal
-        isOpen={isModalOpen}
-        product={selectedProduct}
-        onClose={handleCloseModal}
-      />
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          product={selectedProduct}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 };

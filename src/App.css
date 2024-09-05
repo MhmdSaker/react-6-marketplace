@@ -224,12 +224,59 @@
     opacity: 0.4;
 }
 
+.filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filters input, .filters button {
+    margin-left: 20px;
+    height: 30px;
+    
+
+}
+
+.filters .price-filter input {
+    padding-left:8px;
+    width: 70px;
+    border-radius: 3px;
+    border: 1px solid  #111111;
+}
+
+.filters .price-filter button {
+
+        background-color: #1f2323;
+        text-decoration: none;
+        color: #ffffff;
+        font-family: Rubik;
+        font-weight: 500;
+        border-radius: 20px;
+        height: 35px;
+        transition: box-shadow 500ms cubic-bezier(0.47, 0, 0.745, 0.715),
+        font-weight 200ms cubic-bezier(0.47, 0, 0.745, 0.715), scale 100ms cubic-bezier(0.47, 0, 0.745, 0.715);
+        cursor:pointer;
+        padding: 5px 30px;
+      
+
+      
+
+}
+
+.filters .price-filter button:hover {
+    box-shadow: 0px 5px 0px #2df12376;
+    scale: 0.96;
+    
+  }
+
 .category-filter select {
     font-family: Inter;
-    height: 30px;
+    height: 35px;
     border-radius: 5px;
     border: solid 1px #111
 }
+
+
 
 .skeleton-loader {
     display: flex;
