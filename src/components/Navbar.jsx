@@ -9,7 +9,11 @@ import {
   faPlus,
   faToggleOn,
   faToggleOff,
+  faCartShopping,
+  faShoppingCart,
+  faShoppingBasket
 } from "@fortawesome/free-solid-svg-icons";
+import { FaShoppingCart } from "react-icons/fa";
 
 const NavBar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -41,6 +45,9 @@ const NavBar = () => {
           </Link>
           <Link style={linkStyle} className="link" to="/products/add">
             <FontAwesomeIcon icon={faPlus} />
+          </Link>
+          <Link style={linkStyle} className="link" to="/cart">
+            <FontAwesomeIcon icon={faShoppingCart} />
           </Link>
           <button
             onClick={toggleTheme}

@@ -9,11 +9,17 @@ import ProductTable from "./components/ProductTable";
 import NewProduct from "./components/NewProduct";
 import EditProduct from "./components/EditProduct";
 import ThemeProvider from "./components/ThemeContext";
+import Cart from "./components/Cart";
+import Product from "./components/Product";
+import { CartProvider} from './components/CartContext'
+
+
 
 function App() {
   return (
     <>
       <ThemeProvider>
+        <CartProvider>
         <NavBar />
         <Routes>
           <Route path="/" element={<ProductList />} />
@@ -25,7 +31,9 @@ function App() {
           </Route>
           <Route path="/products-table" element={<ProductTable />}></Route>
           <Route path="/about-us" element={<About />} />
+          <Route path="/cart" element={<Cart/>} />
         </Routes>
+        </CartProvider>
       </ThemeProvider>
 
     </>

@@ -11,7 +11,7 @@ const SkeletonLoader = () => (
   </div>
 );
 
-const Product = ({ productId, button }) => {
+const Product = ({ productId, button, handleModalClick, handleAddToCart }) => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
 
@@ -38,7 +38,7 @@ const Product = ({ productId, button }) => {
   return (
     <div className="product-container">
       <span>{product.category || "Unknown Category"}</span>
-      <img src={product.image} alt={product.title || "Product Image"} />
+      <img onClick={() => handleModalClick(product)} src={product.image} alt={product.title || "Product Image"} />
       <h2>{truncateDesc(product.title || "No Title", 20)}</h2>
       <p className="desc">{truncateDesc(product.description || "No Description", 80)}</p>
 
@@ -53,6 +53,10 @@ const Product = ({ productId, button }) => {
         </div>
       </div>
       {button && <Link className="link" to={`/products/${productId}`}>Details</Link>}
+      <div style={{display: "flex", justifyContent: "right"}}>
+        <button className="btn" onClick={handleAddToCart}>Add to Cart</button>
+      </div>
+      
     </div>
   );
 };
