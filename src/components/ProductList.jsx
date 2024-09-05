@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import Product from "./Product";
-
+import Modal from "./Modal"; // Import the Modal component
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [input, setInput] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null); // Track selected product for the modal
+  const [isModalOpen, setIsModalOpen] = useState(false); // Track modal open/close state
 
   const apiUrl = `http://localhost:9000/products`;
 
@@ -37,9 +39,9 @@ const ProductList = () => {
     fetchCategories();
   }, [input]);
 
-  const inputInLower = input.toLowerCase()
+  const inputInLower = input.toLowerCase();
   const SearchedProducts = products.filter((product) =>
-    (product.title).toLowerCase().includes(inputInLower)
+    product.title.toLowerCase().includes(inputInLower)
   );
 
   const handleCategoryChange = (category) => {
@@ -55,6 +57,17 @@ const ProductList = () => {
   const maxPrice = Math.max(...prices);
   const minPrice = Math.min(...prices);
 
+
+
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <div className="search-filter">
@@ -65,7 +78,7 @@ const ProductList = () => {
             id="search"
             placeholder="Search"
             onChange={(e) => setInput(e.target.value)}
-          />{" "}
+          />
         </div>
         <div className="category-filter">
           <select
@@ -81,21 +94,25 @@ const ProductList = () => {
           </select>
         </div>
       </div>
-      {/* <div className="price-filter">
-        <label htmlFor="vol"> Prices between {maxPrice} and {minPrice}</label>
-        <br />
-        <input type="range" name="vol" min={minPrice} max={maxPrice}></input>
-
-      </div> */}
 
       <div className="products">
         {filteredProducts.map((product) => (
-          <Product key={product.id} productId={product.id} button={true} />
-        )) &&
-          SearchedProducts.map((product) => (
+          <div key={product.id} onClick={() => handleProductClick(product)}>
+            <Product productId={product.id} button={true} />
+          </div>
+        )) && SearchedProducts.map((product) => (
+          <div key={product.id} onClick={() => handleProductClick(product)}>
             <Product product={product} productId={product.id} button={true} />
-          ))}
+          </div>
+        ))}
       </div>
+
+      {/* Modal for Product Details */}
+      <Modal
+        isOpen={isModalOpen}
+        product={selectedProduct}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
